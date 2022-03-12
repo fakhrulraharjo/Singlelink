@@ -28,9 +28,11 @@ export type Event = {
 export type Link = {
   __typename?: 'Link';
   content?: Maybe<Scalars['String']>;
+  end_date?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   label?: Maybe<Scalars['String']>;
   position: Scalars['Int'];
+  start_date?: Maybe<Scalars['String']>;
   type: Scalars['String'];
 };
 
@@ -53,7 +55,9 @@ export type MutationCreateEventArgs = {
 
 export type MutationCreateLinkArgs = {
   content?: Maybe<Scalars['String']>;
+  end_date?: Maybe<Scalars['String']>;
   label?: Maybe<Scalars['String']>;
+  start_date?: Maybe<Scalars['String']>;
   type: Scalars['String'];
 };
 
@@ -77,9 +81,11 @@ export type MutationReorderLinkArgs = {
 
 export type MutationUpdateLinkByIdArgs = {
   content?: Maybe<Scalars['String']>;
+  end_date?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   label?: Maybe<Scalars['String']>;
   position: Scalars['Int'];
+  start_date?: Maybe<Scalars['String']>;
   type: Scalars['String'];
 };
 

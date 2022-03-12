@@ -1,5 +1,6 @@
 import Link from '../../../../lib/models/Link'
 import Event from '../../../../lib/models/Event'
+import console from 'console'
 
 export const Query = {
     hello : async () => {
@@ -9,6 +10,7 @@ export const Query = {
     listLinks: async (_: any, _params: any, context: { isAuthorized: boolean }) => {
         if(context.isAuthorized === false) throw Error('Must be authorized to use the Dashboard.')
         const links = await Link.list()
+        //console.log(links)
         return links
     },
     findLinkById: async (_ : any, { id }: { id: number }, context: { isAuthorized: boolean }) => {

@@ -18,17 +18,23 @@ mutation createLink(
             $label: String
             $content: String
             $type: String!
+            $start_date: String
+            $end_date: String
         ) {
             createLink(
                 label: $label,
                 content: $content,
-                type: $type
+                type: $type,
+                start_date: $start_date,
+                end_date: $end_date
             ) {
                 id
                 label
                 content
                 type
                 position
+                start_date
+                end_date
             }
         }
 
@@ -38,6 +44,8 @@ mutation updateLinkById(
             $id: Int!
             $position: Int!
             $type: String!
+            $start_date: String
+            $end_date: String
         ) {
             updateLinkById(
                 label: $label,
@@ -45,12 +53,16 @@ mutation updateLinkById(
                 id: $id,
                 position: $position,
                 type: $type
+                start_date: $start_date,
+                end_date: $end_date
             ) {
                 id
                 label
                 content
                 type
                 position
+                start_date
+                end_date
             }
         }
 
@@ -61,6 +73,8 @@ mutation deleteLinkById($id: Int!) {
         content
         type
         position
+        start_date
+        end_date
     }
 }
 
@@ -71,6 +85,8 @@ mutation reorderLink($id: Int!, $newIndex: Int!, $oldIndex: Int!) {
         id
         position
         type
+        start_date
+        end_date
     }
 }
 

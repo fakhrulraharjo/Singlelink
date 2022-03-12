@@ -1,4 +1,5 @@
 const { Pool } = require('pg')
+console.log(`${process.env.PGUSER}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`)
 
 const client = new Pool({
     user: process.env.PGUSER,

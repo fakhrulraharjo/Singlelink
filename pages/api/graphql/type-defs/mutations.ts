@@ -8,6 +8,8 @@ export const mutations = gql`
             label: String
             content: String
             type: String!
+            start_date: String
+            end_date: String
         ): Link
         updateLinkById(
             label: String
@@ -15,6 +17,8 @@ export const mutations = gql`
             id: Int!
             position: Int!
             type: String!
+            start_date: String
+            end_date: String
         ): Link
         deleteLinkById(id: Int!): Link
         reorderLink(id: Int!, newIndex: Int!, oldIndex: Int!): [Link]

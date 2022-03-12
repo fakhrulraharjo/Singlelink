@@ -7,6 +7,9 @@ export const types = gql`
         content: String
         type: String!
         position: Int!
+        start_date: String
+        end_date: String
+
     }
     enum EVENT_TYPE {
         click

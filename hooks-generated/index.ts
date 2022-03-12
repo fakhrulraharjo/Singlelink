@@ -30,9 +30,11 @@ export type Event = {
 export type Link = {
   __typename?: 'Link';
   content?: Maybe<Scalars['String']>;
+  end_date?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   label?: Maybe<Scalars['String']>;
   position: Scalars['Int'];
+  start_date?: Maybe<Scalars['String']>;
   type: Scalars['String'];
 };
 
@@ -55,7 +57,9 @@ export type MutationCreateEventArgs = {
 
 export type MutationCreateLinkArgs = {
   content?: Maybe<Scalars['String']>;
+  end_date?: Maybe<Scalars['String']>;
   label?: Maybe<Scalars['String']>;
+  start_date?: Maybe<Scalars['String']>;
   type: Scalars['String'];
 };
 
@@ -79,9 +83,11 @@ export type MutationReorderLinkArgs = {
 
 export type MutationUpdateLinkByIdArgs = {
   content?: Maybe<Scalars['String']>;
+  end_date?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   label?: Maybe<Scalars['String']>;
   position: Scalars['Int'];
+  start_date?: Maybe<Scalars['String']>;
   type: Scalars['String'];
 };
 
@@ -134,6 +140,8 @@ export type CreateLinkMutationVariables = Exact<{
   label?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
   type: Scalars['String'];
+  start_date?: Maybe<Scalars['String']>;
+  end_date?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -141,7 +149,7 @@ export type CreateLinkMutation = (
   { __typename?: 'Mutation' }
   & { createLink?: Maybe<(
     { __typename?: 'Link' }
-    & Pick<Link, 'id' | 'label' | 'content' | 'type' | 'position'>
+    & Pick<Link, 'id' | 'label' | 'content' | 'type' | 'position' | 'start_date' | 'end_date'>
   )> }
 );
 
@@ -151,6 +159,8 @@ export type UpdateLinkByIdMutationVariables = Exact<{
   id: Scalars['Int'];
   position: Scalars['Int'];
   type: Scalars['String'];
+  start_date?: Maybe<Scalars['String']>;
+  end_date?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -158,7 +168,7 @@ export type UpdateLinkByIdMutation = (
   { __typename?: 'Mutation' }
   & { updateLinkById?: Maybe<(
     { __typename?: 'Link' }
-    & Pick<Link, 'id' | 'label' | 'content' | 'type' | 'position'>
+    & Pick<Link, 'id' | 'label' | 'content' | 'type' | 'position' | 'start_date' | 'end_date'>
   )> }
 );
 
@@ -171,7 +181,7 @@ export type DeleteLinkByIdMutation = (
   { __typename?: 'Mutation' }
   & { deleteLinkById?: Maybe<(
     { __typename?: 'Link' }
-    & Pick<Link, 'id' | 'label' | 'content' | 'type' | 'position'>
+    & Pick<Link, 'id' | 'label' | 'content' | 'type' | 'position' | 'start_date' | 'end_date'>
   )> }
 );
 
@@ -186,7 +196,7 @@ export type ReorderLinkMutation = (
   { __typename?: 'Mutation' }
   & { reorderLink?: Maybe<Array<Maybe<(
     { __typename?: 'Link' }
-    & Pick<Link, 'label' | 'content' | 'id' | 'position' | 'type'>
+    & Pick<Link, 'label' | 'content' | 'id' | 'position' | 'type' | 'start_date' | 'end_date'>
   )>>> }
 );
 
@@ -218,7 +228,7 @@ export type ListLinksQuery = (
   { __typename?: 'Query' }
   & { listLinks?: Maybe<Array<Maybe<(
     { __typename?: 'Link' }
-    & Pick<Link, 'id' | 'label' | 'content' | 'type' | 'position'>
+    & Pick<Link, 'id' | 'label' | 'content' | 'type' | 'position' | 'start_date' | 'end_date'>
   )>>> }
 );
 
@@ -231,7 +241,7 @@ export type FindLinkByIdQuery = (
   { __typename?: 'Query' }
   & { findLinkById?: Maybe<(
     { __typename?: 'Link' }
-    & Pick<Link, 'id' | 'label' | 'content' | 'type' | 'position'>
+    & Pick<Link, 'id' | 'label' | 'content' | 'type' | 'position' | 'start_date' | 'end_date'>
   )> }
 );
 
@@ -310,13 +320,21 @@ export type VerifyMutationHookResult = ReturnType<typeof useVerifyMutation>;
 export type VerifyMutationResult = Apollo.MutationResult<VerifyMutation>;
 export type VerifyMutationOptions = Apollo.BaseMutationOptions<VerifyMutation, VerifyMutationVariables>;
 export const CreateLinkDocument = gql`
-    mutation createLink($label: String, $content: String, $type: String!) {
-  createLink(label: $label, content: $content, type: $type) {
+    mutation createLink($label: String, $content: String, $type: String!, $start_date: String, $end_date: String) {
+  createLink(
+    label: $label
+    content: $content
+    type: $type
+    start_date: $start_date
+    end_date: $end_date
+  ) {
     id
     label
     content
     type
     position
+    start_date
+    end_date
   }
 }
     `;
@@ -338,6 +356,8 @@ export type CreateLinkMutationFn = Apollo.MutationFunction<CreateLinkMutation, C
  *      label: // value for 'label'
  *      content: // value for 'content'
  *      type: // value for 'type'
+ *      start_date: // value for 'start_date'
+ *      end_date: // value for 'end_date'
  *   },
  * });
  */
@@ -349,19 +369,23 @@ export type CreateLinkMutationHookResult = ReturnType<typeof useCreateLinkMutati
 export type CreateLinkMutationResult = Apollo.MutationResult<CreateLinkMutation>;
 export type CreateLinkMutationOptions = Apollo.BaseMutationOptions<CreateLinkMutation, CreateLinkMutationVariables>;
 export const UpdateLinkByIdDocument = gql`
-    mutation updateLinkById($label: String, $content: String, $id: Int!, $position: Int!, $type: String!) {
+    mutation updateLinkById($label: String, $content: String, $id: Int!, $position: Int!, $type: String!, $start_date: String, $end_date: String) {
   updateLinkById(
     label: $label
     content: $content
     id: $id
     position: $position
     type: $type
+    start_date: $start_date
+    end_date: $end_date
   ) {
     id
     label
     content
     type
     position
+    start_date
+    end_date
   }
 }
     `;
@@ -385,6 +409,8 @@ export type UpdateLinkByIdMutationFn = Apollo.MutationFunction<UpdateLinkByIdMut
  *      id: // value for 'id'
  *      position: // value for 'position'
  *      type: // value for 'type'
+ *      start_date: // value for 'start_date'
+ *      end_date: // value for 'end_date'
  *   },
  * });
  */
@@ -403,6 +429,8 @@ export const DeleteLinkByIdDocument = gql`
     content
     type
     position
+    start_date
+    end_date
   }
 }
     `;
@@ -440,6 +468,8 @@ export const ReorderLinkDocument = gql`
     id
     position
     type
+    start_date
+    end_date
   }
 }
     `;
@@ -546,6 +576,8 @@ export const ListLinksDocument = gql`
     content
     type
     position
+    start_date
+    end_date
   }
 }
     `;
@@ -584,6 +616,8 @@ export const FindLinkByIdDocument = gql`
     content
     type
     position
+    start_date
+    end_date
   }
 }
     `;

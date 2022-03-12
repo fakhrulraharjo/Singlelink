@@ -9,6 +9,8 @@ query listLinks {
         content
         type
         position
+        start_date
+        end_date
     }
 }
 
@@ -19,6 +21,8 @@ query findLinkById($id: Int!) {
         content
         type
         position
+        start_date
+        end_date
     }
 }
 

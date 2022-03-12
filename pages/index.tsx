@@ -8,6 +8,20 @@ import Logo from '../components/logo'
 import { Link as LinkType }  from '../hooks-generated'
 const parse = require('html-react-parser')
 
+const checkTimeStamp = (start_date: any, end_date?:any) => {
+  const start = new Date(parseInt(start_date))
+  const end = end_date ? new Date(parseInt(end_date)) : 0
+
+  switch(true) {
+    case new Date() <= end && new Date() >= start:
+      return true
+    case new Date() >= start:
+      return true
+    default:
+      return false
+  }
+}
+
 const Home = ({ links }: { links: LinkType[]}) => {
   if(!links || links.length === 0)
     return (
@@ -51,6 +65,8 @@ const Home = ({ links }: { links: LinkType[]}) => {
     </Head>
     <div className='flex flex-col items-center justify-center w-full max-w-md mx-auto py-16 px-4'>
       {[...links].map(link => {
+        if(link?.start_date && !checkTimeStamp(link.start_date, link?.end_date) )
+          return null           
         if(link?.type === 'text')
           return (<div className='text-center flex flex-col items-center justify-center mb-4' key={link?.id}>
             <h1 className="text-3xl mb-4 font-semibold">{link?.label}</h1>
@@ -84,7 +100,7 @@ export async function getServerSideProps({ req }: { req: any}) {
         "accept": "application/json",
         "content-type": "application/json",
       },
-    "body": "{\"operationName\":\"listLinks\",\"variables\":{},\"query\":\"query listLinks {\\n  listLinks {\\n    id\\n    label\\n    content\\n    type\\n    position\\n    __typename\\n  }\\n}\\n\"}",
+    "body": "{\"operationName\":\"listLinks\",\"variables\":{},\"query\":\"query listLinks {\\n  listLinks {\\n    id\\n    label\\n    content\\n    type\\n    position\\n    __typename\\n    start_date\\n    end_date\\n  }\\n}\\n\"}",
     "method": "POST"
   })
   const data = await res.json()
