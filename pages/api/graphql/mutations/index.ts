@@ -22,7 +22,7 @@ export const Mutation = {
             return params.jwt
     },
     createLink: async(_: any,
-        params: { label: string, content: string, type: string}, { isAuthorized }: { isAuthorized: boolean }) => {
+        params: { label: string; content: string; type: string; start_date: String; end_date: String}, { isAuthorized }: { isAuthorized: boolean }) => {
             if(!isAuthorized) throw Error('Must be authorized to use the Dashboard.')
             const link = Link.create(params)
             return link
